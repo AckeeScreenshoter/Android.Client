@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/ackeecz/ass/ass/images/download.svg) ](https://bintray.com/ackeecz/ass/ass/_latestVersion)
+
 # Ass (Android screenshot system)
 We often found our testers submitting screenshots with details about the issue, device specific
 information and user id to our bug tracking system. We wanted to automate this activity in a way
