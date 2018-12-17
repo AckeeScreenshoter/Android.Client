@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.FeedbackActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/ass_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:title="@string/ass_feedback_activity_label"
+            app:popupTheme="@style/AssAppTheme.PopupOverlay"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/ass_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
+
+            <android.support.constraint.Guideline
+                android:id="@+id/ass_guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp"/>
+
+            <android.support.constraint.Guideline
+                android:id="@+id/ass_guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp"/>
+
+            <TextView
+                android:id="@+id/ass_txt_report_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/ass_report_title"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/ass_edit_text_feedback"
+                app:layout_constraintEnd_toStartOf="@+id/ass_guideline3"
+                app:layout_constraintStart_toStartOf="@+id/ass_guideline2"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <EditText
+                android:id="@+id/ass_edit_text_feedback"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="top|start"
+                android:hint="@string/ass_report_edit_hint"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:maxLines="5"
+                android:minLines="1"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/ass_guideline3"
+                app:layout_constraintStart_toStartOf="@+id/ass_guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/ass_txt_report_title"/>
+
+            <FrameLayout
+                android:id="@+id/ass_layout_screenshot"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="32dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:layout_constraintEnd_toStartOf="@+id/ass_guideline"
+                app:layout_constraintStart_toStartOf="@+id/ass_guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/ass_edit_text_feedback">
+
+                <ImageView
+                    android:id="@+id/ass_img_screenshot"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/ass_img_screenshot_description"
+                    tools:background="@android:color/holo_red_dark"
+                    tools:minHeight="180dp"/>
+
+            </FrameLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/ass_list_parameters"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/ass_layout_screenshot"
+                app:layout_constraintEnd_toStartOf="@+id/ass_guideline3"
+                app:layout_constraintStart_toStartOf="@+id/ass_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/ass_edit_text_feedback"
+                app:layout_constraintVertical_bias="0.0"
+                tools:listitem="@layout/ass_feedback_layout_item"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="ass_feedback_activity_label">Feedback</string>
+    <string name="ass_send_feedback">Send</string>
+    <string name="ass_report_edit_hint">Enter your feedback</string>
+    <string name="ass_report_title">Describe the issue:</string>
+    <string name="ass_img_screenshot_description">screenshot</string>
+    <string name="ass_device_model">Device model</string>
+    <string name="ass_app_name">App name</string>
+    <string name="ass_package_name">Package</string>
+    <string name="ass_app_version">App version</string>
+    <string name="ass_os_version">OS version</string>
+    <string name="ass_report_sent">Feedback sent</string>
+    <string name="ass_report_not_sent">Failed to send feedback</string>
+    <string name="ass_done">Done</string>
+    <string name="ass_close">Close</string>
+    <string name="ass_undo">Undo</string>
+    <string name="ass_redo">Redo</string>
+</resources>

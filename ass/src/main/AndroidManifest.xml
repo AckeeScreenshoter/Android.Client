@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cz.ackee.ass">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application>
+
+        <activity
+            android:theme="@style/AssAppTheme"
+            android:name=".activity.FeedbackActivity"
+            android:label="@string/ass_feedback_activity_label"/>
+
+        <activity
+            android:theme="@style/AssAppTheme"
+            android:name=".activity.EditActivity"/>
+
+        <provider
+            android:name=".ScreenshotFileProvider"
+            android:authorities="${applicationId}.cz.ackee.ass.screenshots"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths"/>
+        </provider>
+
+    </application>
+
+</manifest>
