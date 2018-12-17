@@ -33,5 +33,5 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:28.0.0"
-    implementation 'cz.ackee.ass:ass:1.0.0-RC13'
+    implementation 'cz.ackee.ass:ass:1.0.0'
 }
