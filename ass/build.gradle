@@ -46,7 +46,7 @@ ext {
     publishedArtifactId = 'ass'
 
     libraryName = 'ass'
-    libraryDescription = 'Android Screenshot System'
+    libraryDescription = 'Ackee Screenshotting System'
 }
 
 apply from: rootProject.file('gradle/bintray/install.gradle')
