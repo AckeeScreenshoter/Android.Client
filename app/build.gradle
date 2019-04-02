@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "cz.ackee.ass"
+        applicationId "cz.ackee.example.ass"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
@@ -25,6 +25,15 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
         exclude 'AndroidManifest.xml'
+    }
+
+    buildTypes {
+        beta {
+            applicationIdSuffix '.beta'
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 }
 

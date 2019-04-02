@@ -27,7 +27,7 @@ internal class DrawableView @JvmOverloads constructor(
     private val paint = Paint().apply {
         isAntiAlias = true
         isDither = true
-        color = Color.BLACK
+        color = Color.RED
         style = Paint.Style.STROKE
         strokeJoin = Paint.Join.ROUND
         strokeCap = Paint.Cap.ROUND

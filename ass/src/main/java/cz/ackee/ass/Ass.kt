@@ -6,15 +6,19 @@ import android.content.Intent
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.squareup.moshi.Moshi
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.squareup.seismic.ShakeDetector
+import cz.ackee.ass.Ass.globalParameters
+import cz.ackee.ass.Ass.initialize
+import cz.ackee.ass.Ass.localParameters
 import cz.ackee.ass.activity.EditActivity
 import cz.ackee.ass.activity.FeedbackActivity
 import cz.ackee.ass.api.ApiDescription
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * Public API of the library.
@@ -31,7 +35,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @Suppress("unused")
 object Ass {
 
-    internal lateinit var moshi: Moshi
+    internal lateinit var gson: Gson
     internal lateinit var apiDescription: ApiDescription
 
     /**
@@ -170,10 +174,10 @@ object Ass {
      * Initialize the library with [url] of the server and [authToken] required by the server.
      */
     fun initialize(app: Application, url: String, authToken: String, enableLogging: Boolean = false) {
-        moshi = Moshi.Builder().build()
+        gson = GsonBuilder().create()
         apiDescription = Retrofit.Builder()
             .baseUrl(url)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(OkHttpClient.Builder().apply {
                 addNetworkInterceptor { chain ->
                     chain.proceed(chain.request()
