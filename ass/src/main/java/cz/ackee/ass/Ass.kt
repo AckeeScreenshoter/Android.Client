@@ -6,8 +6,7 @@ import android.content.Intent
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.squareup.moshi.*
 import com.squareup.seismic.ShakeDetector
 import cz.ackee.ass.Ass.globalParameters
 import cz.ackee.ass.Ass.initialize
@@ -18,7 +17,7 @@ import cz.ackee.ass.api.ApiDescription
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 /**
  * Public API of the library.
@@ -35,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Suppress("unused")
 object Ass {
 
-    internal lateinit var gson: Gson
+    internal lateinit var moshi: Moshi
     internal lateinit var apiDescription: ApiDescription
 
     /**
@@ -82,6 +81,7 @@ object Ass {
      * acceleration sensor even if the device is not moving.
      */
     enum class Sensitivity(internal val sensitivity: Int) {
+
         Light(ShakeDetector.SENSITIVITY_LIGHT),
         Medium(ShakeDetector.SENSITIVITY_MEDIUM),
         Hard(ShakeDetector.SENSITIVITY_HARD)
@@ -174,10 +174,10 @@ object Ass {
      * Initialize the library with [url] of the server and [authToken] required by the server.
      */
     fun initialize(app: Application, url: String, authToken: String, enableLogging: Boolean = false) {
-        gson = GsonBuilder().create()
+        moshi = Moshi.Builder().build()
         apiDescription = Retrofit.Builder()
             .baseUrl(url)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(OkHttpClient.Builder().apply {
                 addNetworkInterceptor { chain ->
                     chain.proceed(chain.request()
@@ -283,14 +283,15 @@ object Ass {
  * be one of allowed types. This way we can add data of allowed types in a type-safe manner.
  */
 sealed class AssParameter(val key: kotlin.String) {
+
     abstract val value: Any
 
-    class String(key: kotlin.String, override val value: kotlin.String): AssParameter(key)
-    class Int(key: kotlin.String, override val value: kotlin.Int): AssParameter(key)
-    class Long(key: kotlin.String, override val value: kotlin.Long): AssParameter(key)
-    class Float(key: kotlin.String, override val value: kotlin.Float): AssParameter(key)
-    class Double(key: kotlin.String, override val value: kotlin.Double): AssParameter(key)
-    class Boolean(key: kotlin.String, override val value: kotlin.Boolean): AssParameter(key)
+    class String(key: kotlin.String, override val value: kotlin.String) : AssParameter(key)
+    class Int(key: kotlin.String, override val value: kotlin.Int) : AssParameter(key)
+    class Long(key: kotlin.String, override val value: kotlin.Long) : AssParameter(key)
+    class Float(key: kotlin.String, override val value: kotlin.Float) : AssParameter(key)
+    class Double(key: kotlin.String, override val value: kotlin.Double) : AssParameter(key)
+    class Boolean(key: kotlin.String, override val value: kotlin.Boolean) : AssParameter(key)
 }
 
 infix fun String.withValue(parameter: String) = AssParameter.String(this, parameter)

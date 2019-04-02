@@ -38,4 +38,12 @@
 
 #picasso
 -dontwarn com.squareup.picasso.OkHttpDownloader
--keep class cz.ackee.ass.api.** {*;}
+
+# moshi
+-keep class com.squareup.moshi.** { *; }
+-keep interface com.squareup.moshi.** { *; }
+-dontwarn com.squareup.moshi.**
+
+# api classes
+-keep class cz.ackee.ass.api.AssRequest { *; }
+

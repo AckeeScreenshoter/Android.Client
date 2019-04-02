@@ -199,7 +199,7 @@ internal class FeedbackActivity : AppCompatActivity() {
         )
         val multipartJson = RequestBody.create(
             MediaType.parse("application/json"),
-            Ass.gson.toJson(request)
+            Ass.moshi.adapter<AssRequest>(AssRequest::class.java).toJson(request).toString()
         )
 
         sendItem.actionView = ProgressBar(this)
