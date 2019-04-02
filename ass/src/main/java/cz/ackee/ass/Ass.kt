@@ -6,8 +6,11 @@ import android.content.Intent
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.squareup.moshi.Moshi
+import com.squareup.moshi.*
 import com.squareup.seismic.ShakeDetector
+import cz.ackee.ass.Ass.globalParameters
+import cz.ackee.ass.Ass.initialize
+import cz.ackee.ass.Ass.localParameters
 import cz.ackee.ass.activity.EditActivity
 import cz.ackee.ass.activity.FeedbackActivity
 import cz.ackee.ass.api.ApiDescription
@@ -78,6 +81,7 @@ object Ass {
      * acceleration sensor even if the device is not moving.
      */
     enum class Sensitivity(internal val sensitivity: Int) {
+
         Light(ShakeDetector.SENSITIVITY_LIGHT),
         Medium(ShakeDetector.SENSITIVITY_MEDIUM),
         Hard(ShakeDetector.SENSITIVITY_HARD)
@@ -279,14 +283,15 @@ object Ass {
  * be one of allowed types. This way we can add data of allowed types in a type-safe manner.
  */
 sealed class AssParameter(val key: kotlin.String) {
+
     abstract val value: Any
 
-    class String(key: kotlin.String, override val value: kotlin.String): AssParameter(key)
-    class Int(key: kotlin.String, override val value: kotlin.Int): AssParameter(key)
-    class Long(key: kotlin.String, override val value: kotlin.Long): AssParameter(key)
-    class Float(key: kotlin.String, override val value: kotlin.Float): AssParameter(key)
-    class Double(key: kotlin.String, override val value: kotlin.Double): AssParameter(key)
-    class Boolean(key: kotlin.String, override val value: kotlin.Boolean): AssParameter(key)
+    class String(key: kotlin.String, override val value: kotlin.String) : AssParameter(key)
+    class Int(key: kotlin.String, override val value: kotlin.Int) : AssParameter(key)
+    class Long(key: kotlin.String, override val value: kotlin.Long) : AssParameter(key)
+    class Float(key: kotlin.String, override val value: kotlin.Float) : AssParameter(key)
+    class Double(key: kotlin.String, override val value: kotlin.Double) : AssParameter(key)
+    class Boolean(key: kotlin.String, override val value: kotlin.Boolean) : AssParameter(key)
 }
 
 infix fun String.withValue(parameter: String) = AssParameter.String(this, parameter)

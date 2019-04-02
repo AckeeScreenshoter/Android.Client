@@ -6,7 +6,7 @@
     <string name="ass_img_screenshot_description">screenshot</string>
     <string name="ass_device_model">Device model</string>
     <string name="ass_app_name">App name</string>
-    <string name="ass_package_name">Package</string>
+    <string name="ass_package_name">Bundle ID</string>
     <string name="ass_app_version">App version</string>
     <string name="ass_os_version">OS version</string>
     <string name="ass_report_sent">Feedback sent</string>

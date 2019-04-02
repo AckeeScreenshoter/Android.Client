@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "cz.ackee.ass"
+        applicationId "cz.ackee.example.ass"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
@@ -26,6 +26,14 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'AndroidManifest.xml'
     }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {
@@ -33,5 +41,6 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:28.0.0"
-    implementation 'cz.ackee.ass:ass:1.0.0'
+    implementation "com.android.support:design:28.0.0"
+    implementation 'cz.ackee.ass:ass:1.0.1'
 }
