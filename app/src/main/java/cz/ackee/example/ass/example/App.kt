@@ -1,4 +1,4 @@
-package cz.ackee.ass.example
+package cz.ackee.example.ass.example
 
 import android.app.Application
 import cz.ackee.ass.Ass

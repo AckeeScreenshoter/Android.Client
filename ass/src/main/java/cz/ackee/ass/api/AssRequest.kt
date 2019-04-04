@@ -12,7 +12,7 @@ internal data class AssRequest(
     val osVersion: String,
     val platform: String,
     val buildNumber: Int,
-    val packageName: String,
+    val bundleId: String,
     val note: String? = null,
     val customData: Map<String, Any>? = null
 )

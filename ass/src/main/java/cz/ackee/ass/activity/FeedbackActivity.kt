@@ -29,6 +29,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.HttpException
 import retrofit2.Response
 import java.io.File
 
@@ -57,7 +58,7 @@ internal class FeedbackActivity : AppCompatActivity() {
     private lateinit var imgScreenshot: ImageView
     private lateinit var layoutScreenshot: View
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ass_feedback_layout)
@@ -87,7 +88,7 @@ internal class FeedbackActivity : AppCompatActivity() {
             osVersion = Build.VERSION.SDK_INT.toString(),
             platform = "android",
             buildNumber = @Suppress("DEPRECATION") packageInfo.versionCode,
-            packageName = packageName,
+            bundleId = packageName,
             customData = feedbackData.customData
         )
 
@@ -96,7 +97,7 @@ internal class FeedbackActivity : AppCompatActivity() {
             adapter = ParameterAdapter(listOf(
                 getString(R.string.ass_app_name) to request.appName,
                 getString(R.string.ass_app_version) to "${request.appVersion} (${request.buildNumber})",
-                getString(R.string.ass_package_name) to request.packageName,
+                getString(R.string.ass_package_name) to request.bundleId,
                 getString(R.string.ass_device_model) to "${request.deviceMake} ${request.deviceModel}",
                 getString(R.string.ass_os_version) to "${request.platform} ${request.osVersion}"
             ) + feedbackData.customData.toList()).apply {
@@ -198,7 +199,7 @@ internal class FeedbackActivity : AppCompatActivity() {
         )
         val multipartJson = RequestBody.create(
             MediaType.parse("application/json"),
-            Ass.moshi.adapter(AssRequest::class.java).toJson(request)
+            Ass.moshi.adapter<AssRequest>(AssRequest::class.java).toJson(request).toString()
         )
 
         sendItem.actionView = ProgressBar(this)
@@ -207,17 +208,26 @@ internal class FeedbackActivity : AppCompatActivity() {
 
         call = Ass.apiDescription.uploadFeedback(multipartScreenshot, multipartJson).apply {
             enqueue(object : Callback<Unit> {
-                override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    t.printStackTrace()
+                private fun fail() {
                     Toast.makeText(this@FeedbackActivity, getString(R.string.ass_report_not_sent), Toast.LENGTH_LONG).show()
                     sendItem.actionView = null
                     editTextFeedback.isEnabled = true
                     layoutScreenshot.isClickable = true
                 }
 
+                override fun onFailure(call: Call<Unit>, t: Throwable) {
+                    t.printStackTrace()
+                    fail()
+                }
+
                 override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                    Toast.makeText(this@FeedbackActivity, getString(R.string.ass_report_sent), Toast.LENGTH_LONG).show()
-                    finish()
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@FeedbackActivity, getString(R.string.ass_report_sent), Toast.LENGTH_LONG).show()
+                        finish()
+                    } else {
+                        HttpException(response).printStackTrace()
+                        fail()
+                    }
                 }
             })
         }

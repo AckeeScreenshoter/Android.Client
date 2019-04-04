@@ -2,6 +2,7 @@ package cz.ackee.ass
 
 import android.content.Context
 import android.graphics.*
+import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -18,7 +19,7 @@ internal class DrawableView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : ImageView(context, attrs, defStyleAttr), OnTouchListener {
+) : AppCompatImageView(context, attrs, defStyleAttr), OnTouchListener {
 
     private val paths = LinkedList<Path>()
     private val undonePaths = LinkedList<Path>()
@@ -27,7 +28,7 @@ internal class DrawableView @JvmOverloads constructor(
     private val paint = Paint().apply {
         isAntiAlias = true
         isDither = true
-        color = Color.BLACK
+        color = Color.RED
         style = Paint.Style.STROKE
         strokeJoin = Paint.Join.ROUND
         strokeCap = Paint.Cap.ROUND
