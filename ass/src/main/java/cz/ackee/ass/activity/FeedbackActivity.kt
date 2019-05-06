@@ -40,6 +40,7 @@ import java.io.File
 internal class FeedbackActivity : AppCompatActivity() {
 
     companion object {
+        const val ARG_APP_NAME = "app_name"
         const val ARG_FEEDBACK_DATA = "feedback_data"
         const val RC_SCREENSHOT_EDIT = 1
     }
@@ -47,6 +48,7 @@ internal class FeedbackActivity : AppCompatActivity() {
     /**
      * Data received from calling activity - screenshot and user-defined custom parameters
      */
+    private val appName by lazy { intent.getStringExtra(ARG_APP_NAME) ?: null }
     private val feedbackData by lazy { intent.getParcelableExtra<FeedbackData>(ARG_FEEDBACK_DATA) }
     private var call: Call<Unit>? = null
     private lateinit var sendItem: MenuItem
@@ -78,11 +80,10 @@ internal class FeedbackActivity : AppCompatActivity() {
             deviceModel = Build.MODEL,
             appVersion = packageInfo.versionName,
             deviceMake = Build.MANUFACTURER,
-            appName = applicationInfo.labelRes.let { resId ->
-                if (resId == 0) {
-                    applicationInfo.nonLocalizedLabel.toString()
-                } else {
-                    getString(resId)
+            appName = when {
+                !appName.isNullOrEmpty() -> appName!!
+                else -> applicationInfo.labelRes.let { resId ->
+                    if (resId == 0) applicationInfo.nonLocalizedLabel.toString() else getString(resId)
                 }
             },
             osVersion = "${Build.VERSION.RELEASE} (api ${Build.VERSION.SDK_INT})",
