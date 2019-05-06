@@ -48,6 +48,11 @@ object Ass {
     private val detectors: MutableMap<Activity, ShakeDetector> = mutableMapOf()
 
     /**
+     * Explicitly specified app name, otherwise taken from package info.
+     */
+    private var appName: String? = null
+
+    /**
      * Map of parameters scoped to an [Activity]. Leaks should not occur because we are removing
      * references to activities when they are destroyed.
      *
@@ -173,7 +178,8 @@ object Ass {
     /**
      * Initialize the library with [url] of the server and [authToken] required by the server.
      */
-    fun initialize(app: Application, url: String, authToken: String, enableLogging: Boolean = false) {
+    fun initialize(app: Application, url: String, authToken: String, appName: String? = null, enableLogging: Boolean = false) {
+        this.appName = appName
         moshi = Moshi.Builder().build()
         apiDescription = Retrofit.Builder()
             .baseUrl(url)
@@ -270,6 +276,7 @@ object Ass {
         val screenshot = activity.window.decorView.createBitmap()
         val screenshotUri = activity.storeBitmapToCache(screenshot)
         activity.startActivity(Intent(activity, FeedbackActivity::class.java).apply {
+            putExtra(FeedbackActivity.ARG_APP_NAME, appName)
             putExtra(FeedbackActivity.ARG_FEEDBACK_DATA, FeedbackData(
                 screenshotUri,
                 HashMap(parameters + globalParameters)
