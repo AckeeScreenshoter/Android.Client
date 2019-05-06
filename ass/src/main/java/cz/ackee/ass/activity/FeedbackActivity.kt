@@ -85,7 +85,7 @@ internal class FeedbackActivity : AppCompatActivity() {
                     getString(resId)
                 }
             },
-            osVersion = Build.VERSION.SDK_INT.toString(),
+            osVersion = "${Build.VERSION.RELEASE} (api ${Build.VERSION.SDK_INT})",
             platform = "android",
             buildNumber = @Suppress("DEPRECATION") packageInfo.versionCode,
             bundleId = packageName,
