@@ -6,6 +6,11 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
 
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
     defaultConfig {
         applicationId "cz.ackee.example.ass"
         minSdkVersion 15
