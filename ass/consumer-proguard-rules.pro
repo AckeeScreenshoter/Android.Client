@@ -46,4 +46,3 @@
 
 # api classes
 -keep class cz.ackee.ass.api.AssRequest { *; }
-
