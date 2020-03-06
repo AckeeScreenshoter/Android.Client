@@ -47,3 +47,8 @@
 # api classes
 -keep class cz.ackee.ass.api.AssRequest { *; }
 
+#needed for moshi code generation
+-dontwarn org.jetbrains.annotations.**
+-keep class kotlin.Metadata { *; }
+-keepclassmembers class cz.ackee.example.** { <init>(...); <fields>;}
+-keep @android.support.annotation.Keep class * {*;}
