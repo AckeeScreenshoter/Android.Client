@@ -24,9 +24,10 @@ import cz.ackee.ass.Ass
 import cz.ackee.ass.FeedbackData
 import cz.ackee.ass.R
 import cz.ackee.ass.api.AssRequest
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -131,8 +132,8 @@ internal class FeedbackActivity : AppCompatActivity() {
             return@setOnTouchListener false
         }
 
-        Picasso.with(this).invalidate(feedbackData.screenshotUri)
-        Picasso.with(this).load(feedbackData.screenshotUri).into(imgScreenshot)
+        Picasso.get().invalidate(feedbackData.screenshotUri)
+        Picasso.get().load(feedbackData.screenshotUri).into(imgScreenshot)
 
         layoutScreenshot.setOnClickListener {
             startActivityForResult(Intent(this, EditActivity::class.java).apply {
@@ -154,8 +155,8 @@ internal class FeedbackActivity : AppCompatActivity() {
         if (requestCode == RC_SCREENSHOT_EDIT) {
             if (resultCode == Activity.RESULT_OK) {
                 data?.getParcelableExtra<Uri>(EditActivity.SCREENSHOT_BITMAP_URI)?.let {
-                    Picasso.with(this).invalidate(it)
-                    Picasso.with(this).load(it).into(imgScreenshot)
+                    Picasso.get().invalidate(it)
+                    Picasso.get().load(it).into(imgScreenshot)
                 }
             }
         }
@@ -199,12 +200,13 @@ internal class FeedbackActivity : AppCompatActivity() {
         val multipartScreenshot = MultipartBody.Part.createFormData(
             "screenshot",
             "screenshot.jpg",
-            RequestBody.create(MediaType.parse("image/jpeg"), file)
+            file.asRequestBody("image/jpeg".toMediaTypeOrNull())
         )
-        val multipartJson = RequestBody.create(
-            MediaType.parse("application/json"),
-            Ass.moshi.adapter<AssRequest>(AssRequest::class.java).toJson(request).toString()
-        )
+
+        val multipartJson = Ass.moshi.adapter<AssRequest>(AssRequest::class.java)
+                .toJson(request)
+                .toString()
+                .toRequestBody("application/json".toMediaTypeOrNull())
 
         sendItem.actionView = ProgressBar(this)
         editTextFeedback.isEnabled = false
