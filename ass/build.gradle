@@ -14,6 +14,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-proguard-rules.pro'
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -29,10 +33,12 @@ dependencies {
     implementation "com.squareup.moshi:moshi:1.9.2"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.9.2"
 
-    implementation "com.squareup.okhttp3:okhttp:3.9.0"
-    implementation "com.squareup.okhttp3:logging-interceptor:3.9.0"
+    implementation "com.squareup.okhttp3:okhttp:4.2.2"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.10.0"
 
-    implementation "com.squareup.picasso:picasso:2.5.2"
+    implementation ("com.squareup.picasso:picasso:2.71828") {
+        exclude group: "com.android.support"
+    }
 
     implementation "com.squareup:seismic:1.0.2"
 
