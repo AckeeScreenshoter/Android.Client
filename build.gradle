@@ -19,9 +19,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {
-            url  "https://dl.bintray.com/ackeecz/ass"
-        }
+        maven { url "https://dl.bintray.com/ackeecz/ass" }
+        maven { url "https://jitpack.io" }
     }
 }
 
