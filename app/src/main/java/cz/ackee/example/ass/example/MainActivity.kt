@@ -1,8 +1,8 @@
 package cz.ackee.example.ass.example
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import cz.ackee.ass.Ass
 import cz.ackee.ass.withValue
 import cz.ackee.example.ass.R

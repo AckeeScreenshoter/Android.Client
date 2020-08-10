@@ -7,10 +7,6 @@ import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -19,6 +15,10 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import cz.ackee.ass.Ass
 import cz.ackee.ass.FeedbackData
@@ -58,7 +58,7 @@ internal class FeedbackActivity : AppCompatActivity() {
             }
         }
     }
-    private val feedbackData by lazy { intent.getParcelableExtra<FeedbackData>(ARG_FEEDBACK_DATA) }
+    private val feedbackData by lazy { intent.getParcelableExtra<FeedbackData>(ARG_FEEDBACK_DATA)!! }
     private var call: Call<Unit>? = null
     private lateinit var sendItem: MenuItem
     private lateinit var request: AssRequest
@@ -159,6 +159,8 @@ internal class FeedbackActivity : AppCompatActivity() {
                     Picasso.get().load(it).into(imgScreenshot)
                 }
             }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -173,7 +175,7 @@ internal class FeedbackActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item == sendItem) {
             send()
             return true
@@ -195,7 +197,7 @@ internal class FeedbackActivity : AppCompatActivity() {
         })
 
         val screenshotUri = feedbackData.screenshotUri
-        val file = File(cacheDir, screenshotUri.path)
+        val file = File(cacheDir, screenshotUri.path!!)
 
         val multipartScreenshot = MultipartBody.Part.createFormData(
             "screenshot",
@@ -204,9 +206,9 @@ internal class FeedbackActivity : AppCompatActivity() {
         )
 
         val multipartJson = Ass.moshi.adapter<AssRequest>(AssRequest::class.java)
-                .toJson(request)
-                .toString()
-                .toRequestBody("application/json".toMediaTypeOrNull())
+            .toJson(request)
+            .toString()
+            .toRequestBody("application/json".toMediaTypeOrNull())
 
         sendItem.actionView = ProgressBar(this)
         editTextFeedback.isEnabled = false

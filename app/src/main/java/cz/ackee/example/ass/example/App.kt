@@ -2,7 +2,6 @@ package cz.ackee.example.ass.example
 
 import android.app.Application
 import cz.ackee.ass.Ass
-import cz.ackee.ass.BuildConfig
 import cz.ackee.ass.withValue
 
 class App : Application() {
@@ -14,11 +13,9 @@ class App : Application() {
         Ass.initialize(this, "https://your.project.firebaseapp.com", "authtoken")
         Ass.setShakeSensitivity(Ass.Sensitivity.Light)
 
-        if (BuildConfig.FLAVOR == "premium") {
-            Ass.setGlobalParameters(
-                "flavor" withValue "premium"
-            )
-        }
+        Ass.setGlobalParameters(
+            "flavor" withValue "yourFlavor"
+        )
         Ass.addGlobalParameters("appOpenedCount" withValue 42)
     }
 }
