@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cz.ackee.ass">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <application>
+    <application android:requestLegacyExternalStorage="true">
 
         <activity
-            android:theme="@style/AssAppTheme"
             android:name=".activity.FeedbackActivity"
-            android:label="@string/ass_feedback_activity_label"/>
+            android:label="@string/ass_feedback_activity_label"
+            android:theme="@style/AssAppTheme" />
 
         <activity
-            android:theme="@style/AssAppTheme"
-            android:name=".activity.EditActivity"/>
+            android:name=".activity.EditActivity"
+            android:theme="@style/AssAppTheme" />
 
         <provider
             android:name=".ScreenshotFileProvider"
@@ -23,7 +22,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths"/>
+                android:resource="@xml/file_provider_paths" />
         </provider>
 
     </application>
