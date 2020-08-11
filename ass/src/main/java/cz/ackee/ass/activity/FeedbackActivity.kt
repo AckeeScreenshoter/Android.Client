@@ -7,18 +7,20 @@ import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.squareup.picasso.Picasso
 import cz.ackee.ass.Ass
 import cz.ackee.ass.FeedbackData
@@ -44,6 +46,7 @@ internal class FeedbackActivity : AppCompatActivity() {
         const val ARG_APP_NAME = "app_name"
         const val ARG_FEEDBACK_DATA = "feedback_data"
         const val RC_SCREENSHOT_EDIT = 1
+        const val RC_UPLOAD_FROM_GALLERY = 2
     }
 
     /**
@@ -58,7 +61,7 @@ internal class FeedbackActivity : AppCompatActivity() {
             }
         }
     }
-    private val feedbackData by lazy { intent.getParcelableExtra<FeedbackData>(ARG_FEEDBACK_DATA) }
+    private val feedbackData get() = intent.getParcelableExtra<FeedbackData>(ARG_FEEDBACK_DATA)!!
     private var call: Call<Unit>? = null
     private lateinit var sendItem: MenuItem
     private lateinit var request: AssRequest
@@ -68,6 +71,7 @@ internal class FeedbackActivity : AppCompatActivity() {
     private lateinit var editTextFeedback: EditText
     private lateinit var imgScreenshot: ImageView
     private lateinit var layoutScreenshot: View
+    private lateinit var btnUploadFromGallery: Button
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,6 +83,7 @@ internal class FeedbackActivity : AppCompatActivity() {
         editTextFeedback = findViewById(R.id.ass_edit_text_feedback)
         imgScreenshot = findViewById(R.id.ass_img_screenshot)
         layoutScreenshot = findViewById(R.id.ass_layout_screenshot)
+        btnUploadFromGallery = findViewById(R.id.ass_btn_upload_from_gallery)
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -96,6 +101,8 @@ internal class FeedbackActivity : AppCompatActivity() {
             bundleId = packageName,
             customData = feedbackData.customData
         )
+
+        loadScreenshot()
 
         listParameters.apply {
             layoutManager = LinearLayoutManager(context)
@@ -132,13 +139,14 @@ internal class FeedbackActivity : AppCompatActivity() {
             return@setOnTouchListener false
         }
 
-        Picasso.get().invalidate(feedbackData.screenshotUri)
-        Picasso.get().load(feedbackData.screenshotUri).into(imgScreenshot)
-
         layoutScreenshot.setOnClickListener {
             startActivityForResult(Intent(this, EditActivity::class.java).apply {
                 putExtra(EditActivity.SCREENSHOT_BITMAP_URI, feedbackData.screenshotUri)
             }, RC_SCREENSHOT_EDIT)
+        }
+
+        btnUploadFromGallery.setOnClickListener {
+            openGalleryPicker()
         }
     }
 
@@ -152,13 +160,24 @@ internal class FeedbackActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RC_SCREENSHOT_EDIT) {
-            if (resultCode == Activity.RESULT_OK) {
-                data?.getParcelableExtra<Uri>(EditActivity.SCREENSHOT_BITMAP_URI)?.let {
-                    Picasso.get().invalidate(it)
-                    Picasso.get().load(it).into(imgScreenshot)
+        when (requestCode) {
+            RC_SCREENSHOT_EDIT -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    data?.getParcelableExtra<Uri>(EditActivity.SCREENSHOT_BITMAP_URI)?.let { uri ->
+                        intent.putExtra(ARG_FEEDBACK_DATA, feedbackData.copy(screenshotUri = uri))
+                        loadScreenshot()
+                    }
                 }
             }
+            RC_UPLOAD_FROM_GALLERY -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    data?.data?.let { uri ->
+                        intent.putExtra(ARG_FEEDBACK_DATA, feedbackData.copy(screenshotUri = uri))
+                        loadScreenshot()
+                    }
+                }
+            }
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -173,12 +192,25 @@ internal class FeedbackActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item == sendItem) {
             send()
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun loadScreenshot() {
+        Picasso.get().invalidate(feedbackData.screenshotUri)
+        Picasso.get().load(feedbackData.screenshotUri).into(imgScreenshot)
+    }
+
+    private fun openGalleryPicker() {
+        ImagePicker.with(this)
+            .compress(1024)
+            .maxResultSize(1080, 1080)
+            .galleryOnly()
+            .start(RC_UPLOAD_FROM_GALLERY)
     }
 
     /**
@@ -195,7 +227,7 @@ internal class FeedbackActivity : AppCompatActivity() {
         })
 
         val screenshotUri = feedbackData.screenshotUri
-        val file = File(cacheDir, screenshotUri.path)
+        val file = File(cacheDir, screenshotUri.path!!)
 
         val multipartScreenshot = MultipartBody.Part.createFormData(
             "screenshot",
@@ -204,9 +236,9 @@ internal class FeedbackActivity : AppCompatActivity() {
         )
 
         val multipartJson = Ass.moshi.adapter<AssRequest>(AssRequest::class.java)
-                .toJson(request)
-                .toString()
-                .toRequestBody("application/json".toMediaTypeOrNull())
+            .toJson(request)
+            .toString()
+            .toRequestBody("application/json".toMediaTypeOrNull())
 
         sendItem.actionView = ProgressBar(this)
         editTextFeedback.isEnabled = false

@@ -1,6 +1,6 @@
 package cz.ackee.ass
 
-import android.support.v4.content.FileProvider
+import androidx.core.content.FileProvider
 
 /**
  * This file provider defines directory in which app can store screenshot images. Referencing

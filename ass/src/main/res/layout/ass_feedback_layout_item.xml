@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:showIn="@layout/ass_feedback_layout"
-    >
+    tools:showIn="@layout/ass_feedback_layout">
 
     <TextView
         android:id="@+id/ass_txt_title"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:text="@string/ass_device_model"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:maxLines="2"
-        android:ellipsize="end"
-        style="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/ass_txt_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:ellipsize="end"
         android:gravity="start"
+        android:maxLines="3"
         android:textAlignment="viewStart"
         android:textSize="12sp"
-        android:maxLines="3"
-        android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/ass_txt_title"
         app:layout_constraintTop_toBottomOf="@+id/ass_txt_title"
-        tools:text="Samsung SM-A310F"/>
+        tools:text="Samsung SM-A310F" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

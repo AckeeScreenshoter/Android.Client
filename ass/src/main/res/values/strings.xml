@@ -15,4 +15,5 @@
     <string name="ass_close">Close</string>
     <string name="ass_undo">Undo</string>
     <string name="ass_redo">Redo</string>
+    <string name="ass_upload_from_gallery">Upload from gallery</string>
 </resources>

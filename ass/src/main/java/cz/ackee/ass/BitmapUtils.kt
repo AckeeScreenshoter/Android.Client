@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
-import android.support.v4.content.FileProvider
 import android.view.View
+import androidx.core.content.FileProvider
 import java.io.File
 import java.io.FileOutputStream
 
