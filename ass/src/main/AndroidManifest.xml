@@ -8,12 +8,9 @@
 
         <activity
             android:name=".activity.FeedbackActivity"
-            android:label="@string/ass_feedback_activity_label"
-            android:theme="@style/AssAppTheme" />
+            android:label="@string/ass_feedback_activity_label" />
 
-        <activity
-            android:name=".activity.EditActivity"
-            android:theme="@style/AssAppTheme" />
+        <activity android:name=".activity.EditActivity" />
 
         <provider
             android:name=".ScreenshotFileProvider"
