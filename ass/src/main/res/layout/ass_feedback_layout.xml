@@ -15,8 +15,7 @@
             android:id="@+id/ass_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:title="@string/ass_feedback_activity_label"
-            app:popupTheme="@style/AssAppTheme.PopupOverlay" />
+            android:title="@string/ass_feedback_activity_label" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
