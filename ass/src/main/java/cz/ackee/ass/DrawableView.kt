@@ -1,13 +1,16 @@
 package cz.ackee.ass
 
 import android.content.Context
-import android.graphics.*
-import android.support.v7.widget.AppCompatImageView
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Path
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
-import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 import java.util.LinkedList
 
 /**
@@ -126,5 +129,4 @@ internal class DrawableView @JvmOverloads constructor(
         }
         return true
     }
-
 }

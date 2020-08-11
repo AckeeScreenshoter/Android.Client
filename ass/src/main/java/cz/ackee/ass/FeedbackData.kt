@@ -13,9 +13,9 @@ internal data class FeedbackData(
     val customData: HashMap<String, Any>
 ) : Parcelable {
 
-    @Suppress("UNCHECKED_CAST", "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+    @Suppress("UNCHECKED_CAST")
     constructor(parcel: Parcel) : this(
-        parcel.readParcelable(Uri::class.java.classLoader),
+        parcel.readParcelable(Uri::class.java.classLoader)!!,
         parcel.readSerializable() as HashMap<String, Any>
     )
 
