@@ -84,6 +84,17 @@ dependencies {
 }
 ```
 
+Due to [third party library](https://github.com/Dhaval2404/ImagePicker) relying on another library, make sure to add this to your project-level `build.gradle`:
+```
+allprojects {
+   repositories {
+      	jcenter()
+       	maven { url "https://jitpack.io" }  // This row
+   }
+}
+```
+This is a temporary measure and will be possibly resolved in the furure ([this issue](https://github.com/Dhaval2404/ImagePicker/issues/76))
+
 ## License
 Copyright 2018 Ackee, s.r.o.
 
