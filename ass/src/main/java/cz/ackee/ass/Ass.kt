@@ -188,7 +188,7 @@ object Ass {
                 addNetworkInterceptor { chain ->
                     chain.proceed(chain.request()
                         .newBuilder()
-                        .header("X-Version", BuildConfig.VERSION_CODE.toString())
+                        .header("X-Version", BuildConfig.LIB_VERSION_CODE.toString())
                         .header("Authorization", "Bearer $authToken")
                         .build())
                 }
@@ -232,7 +232,7 @@ object Ass {
                 detectors[activity]?.start(manager)
             }
 
-            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {
+            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
                 // not used
             }
 

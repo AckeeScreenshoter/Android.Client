@@ -43,6 +43,7 @@ import java.io.File
 internal class FeedbackActivity : AppCompatActivity() {
 
     companion object {
+
         const val ARG_APP_NAME = "app_name"
         const val ARG_FEEDBACK_DATA = "feedback_data"
         const val RC_SCREENSHOT_EDIT = 1
@@ -54,12 +55,11 @@ internal class FeedbackActivity : AppCompatActivity() {
      */
     private val appName by lazy {
         val provided = intent.getStringExtra(ARG_APP_NAME)
-        when {
-            provided.isNullOrEmpty().not() -> provided
-            else -> applicationInfo.labelRes.let { resId ->
+        if (provided.isNullOrEmpty()) {
+            applicationInfo.labelRes.let { resId ->
                 if (resId == 0) applicationInfo.nonLocalizedLabel.toString() else getString(resId)
             }
-        }
+        } else provided
     }
     private val feedbackData get() = intent.getParcelableExtra<FeedbackData>(ARG_FEEDBACK_DATA)!!
     private var call: Call<Unit>? = null
@@ -235,7 +235,7 @@ internal class FeedbackActivity : AppCompatActivity() {
             file.asRequestBody("image/jpeg".toMediaTypeOrNull())
         )
 
-        val multipartJson = Ass.moshi.adapter<AssRequest>(AssRequest::class.java)
+        val multipartJson = Ass.moshi.adapter(AssRequest::class.java)
             .toJson(request)
             .toString()
             .toRequestBody("application/json".toMediaTypeOrNull())
