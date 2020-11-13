@@ -227,7 +227,13 @@ internal class FeedbackActivity : AppCompatActivity() {
         })
 
         val screenshotUri = feedbackData.screenshotUri
-        val file = File(cacheDir, screenshotUri.path!!)
+        val file = if (screenshotUri.scheme == "file") {
+            // If this URI is from file (from gallery), create file as is
+            File(screenshotUri.path!!)
+        } else {
+            // Otherwise it's a content URI and we need to append the cache path
+            File(cacheDir, screenshotUri.path!!)
+        }
 
         val multipartScreenshot = MultipartBody.Part.createFormData(
             "screenshot",
