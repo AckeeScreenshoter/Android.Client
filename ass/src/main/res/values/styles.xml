@@ -1,0 +1,8 @@
+<resources>
+
+    <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
+</resources>
