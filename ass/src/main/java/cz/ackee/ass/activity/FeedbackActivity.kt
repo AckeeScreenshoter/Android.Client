@@ -20,8 +20,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.request.CachePolicy
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.squareup.picasso.Picasso
 import cz.ackee.ass.Ass
 import cz.ackee.ass.FeedbackData
 import cz.ackee.ass.R
@@ -201,8 +202,9 @@ internal class FeedbackActivity : AppCompatActivity() {
     }
 
     private fun loadScreenshot() {
-        Picasso.get().invalidate(feedbackData.screenshotUri)
-        Picasso.get().load(feedbackData.screenshotUri).into(imgScreenshot)
+        imgScreenshot.load(feedbackData.screenshotUri) {
+            memoryCachePolicy(CachePolicy.DISABLED)
+        }
     }
 
     private fun openGalleryPicker() {

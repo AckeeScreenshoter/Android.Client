@@ -92,9 +92,10 @@
                 <ImageView
                     android:id="@+id/ass_img_screenshot"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/ass_img_screenshot_description"
+                    android:scaleType="centerInside"
                     tools:background="@android:color/holo_red_dark"
                     tools:minHeight="180dp" />
 

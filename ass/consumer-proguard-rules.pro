@@ -36,9 +36,6 @@
 -dontwarn okio.**
 -dontwarn okhttp3.internal.platform.*
 
-#picasso
--dontwarn com.squareup.picasso.OkHttpDownloader
-
 # moshi
 -keep class com.squareup.moshi.** { *; }
 -keep interface com.squareup.moshi.** { *; }
