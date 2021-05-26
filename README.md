@@ -80,7 +80,7 @@ Ass.setShakeSensitivity(Ass.Sensitivity.Hard)   // makes it harder to activate
 Library can be added as a dependency from `jcenter` repository:
 ```
 dependencies {
-    implementation 'cz.ackee.ass:ass:1.1.0'
+    implementation 'cz.ackee.ass:ass:1.2.0'
 }
 ```
 
