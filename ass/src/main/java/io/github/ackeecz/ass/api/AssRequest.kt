@@ -1,4 +1,4 @@
-package cz.ackee.ass.api
+package io.github.ackeecz.ass.api
 
 import com.squareup.moshi.JsonClass
 

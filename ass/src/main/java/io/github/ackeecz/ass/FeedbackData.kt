@@ -1,9 +1,9 @@
-package cz.ackee.ass
+package io.github.ackeecz.ass
 
 import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
-import cz.ackee.ass.activity.FeedbackActivity
+import io.github.ackeecz.ass.activity.FeedbackActivity
 
 /**
  * Data that is passed from calling activity to [FeedbackActivity].

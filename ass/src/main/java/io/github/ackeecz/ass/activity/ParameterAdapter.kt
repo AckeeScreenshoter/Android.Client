@@ -1,11 +1,11 @@
-package cz.ackee.ass.activity
+package io.github.ackeecz.ass.activity
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import cz.ackee.ass.R
+import io.github.ackeecz.ass.R
 
 /**
  * Displays a list both statically provided parameters (app name, app version, os version, etc.)

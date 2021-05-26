@@ -1,4 +1,4 @@
-package cz.ackee.ass
+package io.github.ackeecz.ass
 
 import android.content.Context
 import android.graphics.Bitmap

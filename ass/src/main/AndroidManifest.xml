@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cz.ackee.ass">
+    package="io.github.ackeecz.ass">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,7 +14,7 @@
 
         <provider
             android:name=".ScreenshotFileProvider"
-            android:authorities="${applicationId}.cz.ackee.ass.screenshots"
+            android:authorities="${applicationId}.io.github.ackeecz.ass.screenshots"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

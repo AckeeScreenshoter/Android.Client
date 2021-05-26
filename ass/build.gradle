@@ -8,7 +8,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode = libProperties['VERSION_CODE']
+        versionCode = libProperties['VERSION_CODE'].toInteger()
         versionName libProperties['VERSION_NAME']
         buildConfigField 'int', 'LIB_VERSION_CODE', libProperties['VERSION_CODE']
         buildConfigField 'String', 'LIB_VERSION_NAME', "\"${libProperties['VERSION_NAME']}\""
@@ -26,18 +26,18 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation "androidx.appcompat:appcompat:1.2.0"
-    implementation "com.google.android.material:material:1.2.1"
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.appcompat:appcompat:1.3.0"
+    implementation "com.google.android.material:material:1.3.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
     implementation "androidx.constraintlayout:constraintlayout:2.0.4"
 
-    implementation "com.squareup.retrofit2:retrofit:2.8.1"
-    implementation "com.squareup.retrofit2:converter-moshi:2.8.1"
-    implementation "com.squareup.moshi:moshi:1.11.0"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.11.0"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    implementation "com.squareup.moshi:moshi:1.12.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.12.0"
 
-    implementation "com.squareup.okhttp3:okhttp:4.8.1"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.8.1"
+    implementation "com.squareup.okhttp3:okhttp:4.9.1"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
 
     implementation "io.coil-kt:coil:1.2.1"
 
@@ -51,12 +51,8 @@ tasks.withType(Javadoc).all {
 }
 
 ext {
-    bintrayName = 'ass'
-    publishedArtifactId = 'ass'
-
-    libraryName = 'ass'
-    libraryDescription = 'Ackee Screenshotting System'
+    PUBLISH_ARTIFACT_ID = 'ass'
+    POM_DESCRIPTION = 'Ackee Screenshotting System'
 }
 
-apply from: rootProject.file('gradle/bintray/install.gradle')
-apply from: rootProject.file('gradle/bintray/bintray.gradle')
+apply from: "${rootProject.projectDir}/gradle/mavencentral/publish.gradle"

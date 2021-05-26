@@ -6,7 +6,7 @@
     android:background="@color/ass_bg_light_grey"
     android:orientation="vertical">
 
-    <cz.ackee.ass.DrawableView
+    <io.github.ackeecz.ass.DrawableView
         android:id="@+id/ass_img_screenshot"
         android:layout_width="wrap_content"
         android:layout_height="0dp"

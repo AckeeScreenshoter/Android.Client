@@ -1,11 +1,10 @@
-package cz.ackee.example.ass.example
+package io.github.ackeecz.ass.sample
 
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import cz.ackee.ass.Ass
-import cz.ackee.ass.withValue
-import cz.ackee.example.ass.R
+import io.github.ackeecz.ass.Ass
+import io.github.ackeecz.ass.withValue
 
 class MainActivity : AppCompatActivity() {
 

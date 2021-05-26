@@ -1,4 +1,4 @@
-package cz.ackee.ass.activity
+package io.github.ackeecz.ass.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -7,10 +7,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import cz.ackee.ass.DrawableView
-import cz.ackee.ass.R
-import cz.ackee.ass.activity.EditActivity.Companion.SCREENSHOT_BITMAP_URI
-import cz.ackee.ass.storeBitmapToCache
+import io.github.ackeecz.ass.DrawableView
+import io.github.ackeecz.ass.R
+import io.github.ackeecz.ass.activity.EditActivity.Companion.SCREENSHOT_BITMAP_URI
+import io.github.ackeecz.ass.storeBitmapToCache
 
 /**
  * Allows the user to draw over bitmap stored at [Uri] provided by intent's [SCREENSHOT_BITMAP_URI]

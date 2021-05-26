@@ -1,4 +1,4 @@
-package cz.ackee.ass
+package io.github.ackeecz.ass
 
 import androidx.core.content.FileProvider
 

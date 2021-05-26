@@ -1,4 +1,4 @@
-package cz.ackee.ass.api
+package io.github.ackeecz.ass.api
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

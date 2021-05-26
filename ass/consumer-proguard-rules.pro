@@ -42,4 +42,4 @@
 -dontwarn com.squareup.moshi.**
 
 # api classes
--keep class cz.ackee.ass.api.AssRequest { *; }
+-keep class io.github.ackeecz.ass.api.AssRequest { *; }

@@ -1,4 +1,4 @@
-package cz.ackee.ass
+package io.github.ackeecz.ass
 
 import android.app.Activity
 import android.app.Application
@@ -8,12 +8,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.moshi.Moshi
 import com.squareup.seismic.ShakeDetector
-import cz.ackee.ass.Ass.globalParameters
-import cz.ackee.ass.Ass.initialize
-import cz.ackee.ass.Ass.localParameters
-import cz.ackee.ass.activity.EditActivity
-import cz.ackee.ass.activity.FeedbackActivity
-import cz.ackee.ass.api.ApiDescription
+import io.github.ackeecz.ass.Ass.globalParameters
+import io.github.ackeecz.ass.Ass.initialize
+import io.github.ackeecz.ass.Ass.localParameters
+import io.github.ackeecz.ass.activity.EditActivity
+import io.github.ackeecz.ass.activity.FeedbackActivity
+import io.github.ackeecz.ass.api.ApiDescription
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -179,22 +179,26 @@ object Ass {
      * Initialize the library with [url] of the server and [authToken] required by the server.
      */
     fun initialize(app: Application, url: String, authToken: String, appName: String? = null, enableLogging: Boolean = false) {
-        this.appName = appName
+        Ass.appName = appName
         moshi = Moshi.Builder().build()
         apiDescription = Retrofit.Builder()
             .baseUrl(url)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(OkHttpClient.Builder().apply {
                 addNetworkInterceptor { chain ->
-                    chain.proceed(chain.request()
-                        .newBuilder()
-                        .header("X-Version", BuildConfig.LIB_VERSION_CODE.toString())
-                        .header("Authorization", "Bearer $authToken")
-                        .build())
+                    chain.proceed(
+                        chain.request()
+                            .newBuilder()
+                            .header("X-Version", BuildConfig.LIB_VERSION_CODE.toString())
+                            .header("Authorization", "Bearer $authToken")
+                            .build()
+                    )
                 }
                 if (enableLogging) {
-                    addNetworkInterceptor(HttpLoggingInterceptor()
-                        .setLevel(HttpLoggingInterceptor.Level.BODY))
+                    addNetworkInterceptor(
+                        HttpLoggingInterceptor()
+                            .setLevel(HttpLoggingInterceptor.Level.BODY)
+                    )
                 }
             }.build())
             .build()
@@ -277,16 +281,18 @@ object Ass {
         val screenshotUri = activity.storeBitmapToCache(screenshot)
         activity.startActivity(Intent(activity, FeedbackActivity::class.java).apply {
             putExtra(FeedbackActivity.ARG_APP_NAME, appName)
-            putExtra(FeedbackActivity.ARG_FEEDBACK_DATA, FeedbackData(
-                screenshotUri,
-                HashMap(parameters + globalParameters)
-            ))
+            putExtra(
+                FeedbackActivity.ARG_FEEDBACK_DATA, FeedbackData(
+                    screenshotUri,
+                    HashMap(parameters + globalParameters)
+                )
+            )
         })
     }
 }
 
 /**
- * Users can send custom data as a part of each [Request][cz.ackee.ass.api.AssRequest] but it must
+ * Users can send custom data as a part of each [Request][io.github.ackeecz.ass.api.AssRequest] but it must
  * be one of allowed types. This way we can add data of allowed types in a type-safe manner.
  */
 sealed class AssParameter(val key: kotlin.String) {
