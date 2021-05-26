@@ -85,9 +85,6 @@
 -dontwarn okio.**
 -dontwarn okhttp3.internal.platform.*
 
-#picasso
--dontwarn com.squareup.picasso.OkHttpDownloader
-
 # Dagger Android
 -dontwarn com.google.errorprone.annotations.**
 
