@@ -1,8 +1,8 @@
-package cz.ackee.example.ass.example
+package io.github.ackeescreenshoter.android.sample
 
 import android.app.Application
-import cz.ackee.ass.Ass
-import cz.ackee.ass.withValue
+import io.github.ackeescreenshoter.android.Ass
+import io.github.ackeescreenshoter.android.withValue
 
 class App : Application() {
 

@@ -1,4 +1,4 @@
-package cz.ackee.ass.activity
+package io.github.ackeescreenshoter.android.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -20,12 +20,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.request.CachePolicy
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.squareup.picasso.Picasso
-import cz.ackee.ass.Ass
-import cz.ackee.ass.FeedbackData
-import cz.ackee.ass.R
-import cz.ackee.ass.api.AssRequest
+import io.github.ackeescreenshoter.android.Ass
+import io.github.ackeescreenshoter.android.FeedbackData
+import io.github.ackeescreenshoter.android.R
+import io.github.ackeescreenshoter.android.api.AssRequest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -201,8 +202,9 @@ internal class FeedbackActivity : AppCompatActivity() {
     }
 
     private fun loadScreenshot() {
-        Picasso.get().invalidate(feedbackData.screenshotUri)
-        Picasso.get().load(feedbackData.screenshotUri).into(imgScreenshot)
+        imgScreenshot.load(feedbackData.screenshotUri) {
+            memoryCachePolicy(CachePolicy.DISABLED)
+        }
     }
 
     private fun openGalleryPicker() {

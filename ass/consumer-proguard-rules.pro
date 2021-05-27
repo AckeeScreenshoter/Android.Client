@@ -36,13 +36,10 @@
 -dontwarn okio.**
 -dontwarn okhttp3.internal.platform.*
 
-#picasso
--dontwarn com.squareup.picasso.OkHttpDownloader
-
 # moshi
 -keep class com.squareup.moshi.** { *; }
 -keep interface com.squareup.moshi.** { *; }
 -dontwarn com.squareup.moshi.**
 
 # api classes
--keep class cz.ackee.ass.api.AssRequest { *; }
+-keep class io.github.ackeescreenshoter.android.api.AssRequest { *; }

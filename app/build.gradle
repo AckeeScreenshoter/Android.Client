@@ -12,10 +12,10 @@ android {
     }
 
     defaultConfig {
-        applicationId "cz.ackee.example.ass"
+        applicationId "io.github.ackeescreenshoter.android.sample"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode = libProperties['VERSION_CODE']
+        versionCode = libProperties['VERSION_CODE'].toInteger()
         versionName libProperties['VERSION_NAME']
     }
 
@@ -46,6 +46,6 @@ dependencies {
     implementation project(':ass')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:1.2.0"
-    implementation "com.google.android.material:material:1.2.1"
+    implementation "androidx.appcompat:appcompat:1.3.0"
+    implementation "com.google.android.material:material:1.3.0"
 }

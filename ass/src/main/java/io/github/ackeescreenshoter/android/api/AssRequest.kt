@@ -1,4 +1,4 @@
-package cz.ackee.ass.api
+package io.github.ackeescreenshoter.android.api
 
 import com.squareup.moshi.JsonClass
 
