@@ -42,4 +42,4 @@
 -dontwarn com.squareup.moshi.**
 
 # api classes
--keep class io.github.ackeescreenshoter.ass.api.AssRequest { *; }
+-keep class io.github.ackeescreenshoter.android.api.AssRequest { *; }

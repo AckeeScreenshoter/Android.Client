@@ -1,4 +1,4 @@
-package io.github.ackeescreenshoter.ass
+package io.github.ackeescreenshoter.android
 
 import android.content.Context
 import android.graphics.Bitmap
