@@ -51,7 +51,7 @@ tasks.withType(Javadoc).all {
 }
 
 ext {
-    PUBLISH_ARTIFACT_ID = 'ass'
+    PUBLISH_ARTIFACT_ID = 'android'
     POM_DESCRIPTION = 'Ackee Screenshotting System'
 }
 

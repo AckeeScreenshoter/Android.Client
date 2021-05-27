@@ -79,7 +79,7 @@ Ass.setShakeSensitivity(Ass.Sensitivity.Hard)   // makes it harder to activate
 Library can be added as a dependency from `mavenCentral` repository (or the ending `jcenter`):
 ```
 dependencies {
-    implementation 'io.github.ackeescreenshoter:ass:1.0.0'
+    implementation 'io.github.ackeescreenshoter:android:1.0.0'
 }
 ```
 
