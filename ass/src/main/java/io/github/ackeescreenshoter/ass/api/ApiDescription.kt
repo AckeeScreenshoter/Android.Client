@@ -1,4 +1,4 @@
-package io.github.ackeecz.ass.api
+package io.github.ackeescreenshoter.ass.api
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

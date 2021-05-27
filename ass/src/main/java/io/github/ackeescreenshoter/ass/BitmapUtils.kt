@@ -1,4 +1,4 @@
-package io.github.ackeecz.ass
+package io.github.ackeescreenshoter.ass
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -33,5 +33,5 @@ internal fun Context.storeBitmapToCache(bitmap: Bitmap, name: String? = null): U
         it.close()
     }
 
-    return FileProvider.getUriForFile(this, "$packageName.io.github.ackeecz.ass.screenshots", newFile)
+    return FileProvider.getUriForFile(this, "$packageName.io.github.ackeescreenshoter.ass.screenshots", newFile)
 }

@@ -1,4 +1,4 @@
-package io.github.ackeecz.ass
+package io.github.ackeescreenshoter.ass
 
 import androidx.core.content.FileProvider
 

@@ -8,4 +8,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Migrate from Picasso to Coil
 - Migrate from jCenter to Maven Central
-- ‼️ Important ‼️ groupId has changed. New groupId is `io.github.ackeecz`.
+- ‼️ Important ‼️ groupId has changed. New groupId is `io.github.ackeescreenshoter`.

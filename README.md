@@ -1,4 +1,4 @@
-[ ![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ackeecz/ass/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.ackeecz/ass)
+[ ![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ackeescreenshoter/ass/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.ackeescreenshoter/ass)
 # Ass (Ackee Screenshotting System)
 We often found our testers submitting screenshots with details about the issue, device specific
 information and user id to our bug tracking system. We wanted to automate this activity in a way
@@ -79,7 +79,7 @@ Ass.setShakeSensitivity(Ass.Sensitivity.Hard)   // makes it harder to activate
 Library can be added as a dependency from `mavenCentral` repository (or the ending `jcenter`):
 ```
 dependencies {
-    implementation 'io.github.ackeecz:ass:1.0.0'
+    implementation 'io.github.ackeescreenshoter:ass:1.0.0'
 }
 ```
 

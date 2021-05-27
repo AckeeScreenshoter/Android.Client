@@ -1,4 +1,4 @@
-package io.github.ackeecz.ass
+package io.github.ackeescreenshoter.ass
 
 import android.app.Activity
 import android.app.Application
@@ -8,12 +8,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.moshi.Moshi
 import com.squareup.seismic.ShakeDetector
-import io.github.ackeecz.ass.Ass.globalParameters
-import io.github.ackeecz.ass.Ass.initialize
-import io.github.ackeecz.ass.Ass.localParameters
-import io.github.ackeecz.ass.activity.EditActivity
-import io.github.ackeecz.ass.activity.FeedbackActivity
-import io.github.ackeecz.ass.api.ApiDescription
+import io.github.ackeescreenshoter.ass.Ass.globalParameters
+import io.github.ackeescreenshoter.ass.Ass.initialize
+import io.github.ackeescreenshoter.ass.Ass.localParameters
+import io.github.ackeescreenshoter.ass.activity.EditActivity
+import io.github.ackeescreenshoter.ass.activity.FeedbackActivity
+import io.github.ackeescreenshoter.ass.api.ApiDescription
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -292,7 +292,7 @@ object Ass {
 }
 
 /**
- * Users can send custom data as a part of each [Request][io.github.ackeecz.ass.api.AssRequest] but it must
+ * Users can send custom data as a part of each [Request][io.github.ackeescreenshoter.ass.api.AssRequest] but it must
  * be one of allowed types. This way we can add data of allowed types in a type-safe manner.
  */
 sealed class AssParameter(val key: kotlin.String) {

@@ -1,10 +1,10 @@
-package io.github.ackeecz.ass.sample
+package io.github.ackeescreenshoter.ass.sample
 
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import io.github.ackeecz.ass.Ass
-import io.github.ackeecz.ass.withValue
+import io.github.ackeescreenshoter.ass.Ass
+import io.github.ackeescreenshoter.ass.withValue
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package io.github.ackeecz.ass.activity
+package io.github.ackeescreenshoter.ass.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -23,10 +23,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
 import com.github.dhaval2404.imagepicker.ImagePicker
-import io.github.ackeecz.ass.Ass
-import io.github.ackeecz.ass.FeedbackData
-import io.github.ackeecz.ass.R
-import io.github.ackeecz.ass.api.AssRequest
+import io.github.ackeescreenshoter.ass.Ass
+import io.github.ackeescreenshoter.ass.FeedbackData
+import io.github.ackeescreenshoter.ass.R
+import io.github.ackeescreenshoter.ass.api.AssRequest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
