@@ -1,9 +1,9 @@
-package cz.ackee.ass
+package io.github.ackeescreenshoter.android
 
 import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
-import cz.ackee.ass.activity.FeedbackActivity
+import io.github.ackeescreenshoter.android.activity.FeedbackActivity
 
 /**
  * Data that is passed from calling activity to [FeedbackActivity].

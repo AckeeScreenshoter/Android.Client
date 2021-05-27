@@ -1,5 +1,4 @@
-[ ![Download](https://api.bintray.com/packages/ackeecz/ass/ass/images/download.svg) ](https://bintray.com/ackeecz/ass/ass/_latestVersion)
-
+[ ![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ackeescreenshoter/android/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.ackeescreenshoter/android)
 # Ass (Ackee Screenshotting System)
 We often found our testers submitting screenshots with details about the issue, device specific
 information and user id to our bug tracking system. We wanted to automate this activity in a way
@@ -77,10 +76,10 @@ Ass.setShakeSensitivity(Ass.Sensitivity.Hard)   // makes it harder to activate
 ```
 
 ## Dependency
-Library can be added as a dependency from `jcenter` repository:
+Library can be added as a dependency from `mavenCentral` repository:
 ```
 dependencies {
-    implementation 'cz.ackee.ass:ass:1.2.0'
+    implementation 'io.github.ackeescreenshoter:android:1.0.0'
 }
 ```
 
@@ -93,7 +92,7 @@ allprojects {
    }
 }
 ```
-This is a temporary measure and will be possibly resolved in the furure ([this issue](https://github.com/Dhaval2404/ImagePicker/issues/76))
+This is a temporary measure and will be possibly resolved in the future ([this issue](https://github.com/Dhaval2404/ImagePicker/issues/76))
 
 ## License
 Copyright 2018 Ackee, s.r.o.

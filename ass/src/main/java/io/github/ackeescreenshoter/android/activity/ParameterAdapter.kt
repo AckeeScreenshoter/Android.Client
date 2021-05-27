@@ -1,11 +1,11 @@
-package cz.ackee.ass.activity
+package io.github.ackeescreenshoter.android.activity
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import cz.ackee.ass.R
+import io.github.ackeescreenshoter.android.R
 
 /**
  * Displays a list both statically provided parameters (app name, app version, os version, etc.)
