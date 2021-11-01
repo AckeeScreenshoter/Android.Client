@@ -3,11 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode = libProperties['VERSION_CODE'].toInteger()
         versionName libProperties['VERSION_NAME']
         buildConfigField 'int', 'LIB_VERSION_CODE', libProperties['VERSION_CODE']
@@ -41,7 +41,7 @@ dependencies {
 
     implementation "io.coil-kt:coil:1.2.1"
 
-    implementation "com.squareup:seismic:1.0.2"
+    implementation "com.squareup:seismic:1.0.3"
 
     implementation 'com.github.dhaval2404:imagepicker:1.7.4'
 }
