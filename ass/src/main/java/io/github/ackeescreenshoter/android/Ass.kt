@@ -277,17 +277,18 @@ object Ass {
      * together with global and local parameters.
      */
     private fun open(activity: Activity, parameters: Map<String, Any>) {
-        val screenshot = activity.window.decorView.createBitmap()
-        val screenshotUri = activity.storeBitmapToCache(screenshot)
-        activity.startActivity(Intent(activity, FeedbackActivity::class.java).apply {
-            putExtra(FeedbackActivity.ARG_APP_NAME, appName)
-            putExtra(
-                FeedbackActivity.ARG_FEEDBACK_DATA, FeedbackData(
-                    screenshotUri,
-                    HashMap(parameters + globalParameters)
+        activity.window.decorView.captureView(activity.window) { screenshot ->
+            val screenshotUri = activity.storeBitmapToCache(screenshot)
+            activity.startActivity(Intent(activity, FeedbackActivity::class.java).apply {
+                putExtra(FeedbackActivity.ARG_APP_NAME, appName)
+                putExtra(
+                    FeedbackActivity.ARG_FEEDBACK_DATA, FeedbackData(
+                        screenshotUri,
+                        HashMap(parameters + globalParameters)
+                    )
                 )
-            )
-        })
+            })
+        }
     }
 }
 
