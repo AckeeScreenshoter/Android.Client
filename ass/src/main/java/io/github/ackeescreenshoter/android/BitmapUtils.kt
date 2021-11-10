@@ -2,19 +2,38 @@ package io.github.ackeescreenshoter.android
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Canvas
+import android.graphics.Rect
 import android.net.Uri
+import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.view.PixelCopy
 import android.view.View
+import android.view.Window
 import androidx.core.content.FileProvider
+import androidx.core.view.drawToBitmap
 import java.io.File
 import java.io.FileOutputStream
 
-/**
- * Creates bitmap from view
- */
-internal fun View.createBitmap(): Bitmap {
-    return Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_8888).apply {
-        draw(Canvas(this))
+fun View.captureView(window: Window, bitmapCallback: (Bitmap) -> Unit) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        // Above Android O, use PixelCopy
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val location = IntArray(2)
+        getLocationInWindow(location)
+        PixelCopy.request(
+            window,
+            Rect(location[0], location[1], location[0] + width, location[1] + height),
+            bitmap,
+            {
+                if (it == PixelCopy.SUCCESS) {
+                    bitmapCallback.invoke(bitmap)
+                }
+            },
+            Handler(Looper.getMainLooper())
+        )
+    } else {
+        bitmapCallback.invoke(drawToBitmap())
     }
 }
 
