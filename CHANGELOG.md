@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [1.1.1] - 2021-11-10
+### Changed
+- Changed a way how bitmap is made from view on Androids >= O
+
 ## [1.1.0] - 2021-11-01
 ### Changed
 - Targets API 31 (adds android.permission.HIGH_SAMPLING_RATE_SENSORS)
