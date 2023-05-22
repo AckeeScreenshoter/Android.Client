@@ -16,8 +16,10 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.IntentCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -27,6 +29,7 @@ import io.github.ackeescreenshoter.android.Ass
 import io.github.ackeescreenshoter.android.FeedbackData
 import io.github.ackeescreenshoter.android.R
 import io.github.ackeescreenshoter.android.api.AssRequest
+import io.github.ackeescreenshoter.android.utils.getPackageInfoCompat
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -62,7 +65,7 @@ internal class FeedbackActivity : AppCompatActivity() {
             }
         } else provided
     }
-    private val feedbackData get() = intent.getParcelableExtra<FeedbackData>(ARG_FEEDBACK_DATA)!!
+    private val feedbackData get() = IntentCompat.getParcelableExtra(intent, ARG_FEEDBACK_DATA, FeedbackData::class.java)!!
     private var call: Call<Unit>? = null
     private lateinit var sendItem: MenuItem
     private lateinit var request: AssRequest
@@ -73,6 +76,25 @@ internal class FeedbackActivity : AppCompatActivity() {
     private lateinit var imgScreenshot: ImageView
     private lateinit var layoutScreenshot: View
     private lateinit var btnUploadFromGallery: Button
+
+    private val editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        val data = result.data
+        if (result.resultCode == Activity.RESULT_OK && data != null) {
+            IntentCompat.getParcelableExtra(data, EditActivity.SCREENSHOT_BITMAP_URI, Uri::class.java)?.let { uri ->
+                intent.putExtra(ARG_FEEDBACK_DATA, feedbackData.copy(screenshotUri = uri))
+                loadScreenshot()
+            }
+        }
+    }
+
+    private val openGalleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.data?.let { uri ->
+                intent.putExtra(ARG_FEEDBACK_DATA, feedbackData.copy(screenshotUri = uri))
+                loadScreenshot()
+            }
+        }
+    }
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,7 +111,7 @@ internal class FeedbackActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val packageInfo = packageManager.getPackageInfo(packageName, 0)
+        val packageInfo = packageManager.getPackageInfoCompat(packageName, 0)
 
         request = AssRequest(
             deviceModel = Build.MODEL,
@@ -141,9 +163,10 @@ internal class FeedbackActivity : AppCompatActivity() {
         }
 
         layoutScreenshot.setOnClickListener {
-            startActivityForResult(Intent(this, EditActivity::class.java).apply {
+            val intent = Intent(this, EditActivity::class.java).apply {
                 putExtra(EditActivity.SCREENSHOT_BITMAP_URI, feedbackData.screenshotUri)
-            }, RC_SCREENSHOT_EDIT)
+            }
+            editLauncher.launch(intent)
         }
 
         btnUploadFromGallery.setOnClickListener {
@@ -157,28 +180,6 @@ internal class FeedbackActivity : AppCompatActivity() {
             if (!it.isCanceled) {
                 it.cancel()
             }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            RC_SCREENSHOT_EDIT -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    data?.getParcelableExtra<Uri>(EditActivity.SCREENSHOT_BITMAP_URI)?.let { uri ->
-                        intent.putExtra(ARG_FEEDBACK_DATA, feedbackData.copy(screenshotUri = uri))
-                        loadScreenshot()
-                    }
-                }
-            }
-            RC_UPLOAD_FROM_GALLERY -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    data?.data?.let { uri ->
-                        intent.putExtra(ARG_FEEDBACK_DATA, feedbackData.copy(screenshotUri = uri))
-                        loadScreenshot()
-                    }
-                }
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -212,7 +213,7 @@ internal class FeedbackActivity : AppCompatActivity() {
             .compress(1024)
             .maxResultSize(1080, 1080)
             .galleryOnly()
-            .start(RC_UPLOAD_FROM_GALLERY)
+            .createIntent { openGalleryLauncher.launch(it) }
     }
 
     /**

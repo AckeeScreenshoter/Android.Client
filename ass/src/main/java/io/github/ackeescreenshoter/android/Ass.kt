@@ -14,6 +14,7 @@ import io.github.ackeescreenshoter.android.Ass.localParameters
 import io.github.ackeescreenshoter.android.activity.EditActivity
 import io.github.ackeescreenshoter.android.activity.FeedbackActivity
 import io.github.ackeescreenshoter.android.api.ApiDescription
+import io.github.ackeescreenshoter.android.utils.appVersionCode
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -189,7 +190,7 @@ object Ass {
                     chain.proceed(
                         chain.request()
                             .newBuilder()
-                            .header("X-Version", BuildConfig.LIB_VERSION_CODE.toString())
+                            .header("X-Version", app.appVersionCode.toString())
                             .header("Authorization", "Bearer $authToken")
                             .build()
                     )

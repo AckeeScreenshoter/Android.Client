@@ -1,24 +1,41 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
-    ext.kotlin_version = '1.4.32'
-    repositories {
-        google()
-        jcenter()
+    ext {
+        kotlin_version = '1.8.21'
+        compileTargetVersion = JavaVersion.VERSION_11
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.4.32"
-        classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.22.0'
-    }
+}
+
+plugins {
+    id "com.android.application" version "8.0.1" apply false
+    id "org.jetbrains.kotlin.jvm" version "$kotlin_version" apply false
+    id "org.jetbrains.dokka" version "1.8.10" apply false
+    id "com.google.devtools.ksp" version "$kotlin_version-1.0.11" apply false
+    id "io.codearte.nexus-staging" version "0.30.0"
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven { url "https://jitpack.io" }
+    }
+}
+
+subprojects {
+    // TODO This is needed to solve this issue https://youtrack.jetbrains.com/issue/KT-55947/Unable-to-set-kapt-jvm-target-version
+    //  KAPT and KSP now ignore kotlinOptions.jvmTarget set globally for all tasks (e.g. in app module) and it
+    //  has to be set explicitly like this to force them to use this Java version and not the one
+    //  that is used by Gradle to run (currently Java 17 for Gradle 8). With not the same Java version
+    //  used for all compilation tasks it fails, so we need to set it to same version like this.
+    //  In the issue one guy says that this change was intentional and not a bug and that we should
+    //  use Gradle JVM Toolchain to set a jvmTarget for KAPT/KSP, but this requires to actually
+    //  download a JDK/JRE for that specific version (e.g. 11) as well, to be able to just compile
+    //  to a Java 11 bytecode which can be done even with a Java 17 compiler. We might need to
+    //  (and probably will) migrate to toolchains, as it seems to be a future of dealing with
+    //  Java versions, but so far wait for some resolution on that task + some future additional
+    //  info when it becomes more clear what is really a correct way to deal with this.
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
+        kotlinOptions.jvmTarget = compileTargetVersion
     }
 }
 
@@ -31,5 +48,3 @@ task clean(type: Delete) {
  */
 ext.libProperties = new Properties()
 ext.libProperties.load(file("${rootDir}/lib.properties").newReader())
-
-apply plugin: 'io.codearte.nexus-staging' // this should be at the end of the file
