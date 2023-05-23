@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.IntentCompat
 import io.github.ackeescreenshoter.android.DrawableView
 import io.github.ackeescreenshoter.android.R
 import io.github.ackeescreenshoter.android.activity.EditActivity.Companion.SCREENSHOT_BITMAP_URI
@@ -32,7 +33,7 @@ internal class EditActivity : AppCompatActivity() {
         val btnClose = findViewById<ImageView>(R.id.close)
         val btnDone = findViewById<ImageView>(R.id.done)
 
-        val screenshotUri = intent.getParcelableExtra<Uri>(SCREENSHOT_BITMAP_URI)!!
+        val screenshotUri = IntentCompat.getParcelableExtra(intent, SCREENSHOT_BITMAP_URI, Uri::class.java)!!
         val screenshot = contentResolver.openInputStream(screenshotUri).use {
             BitmapFactory.decodeStream(it)!!
         }

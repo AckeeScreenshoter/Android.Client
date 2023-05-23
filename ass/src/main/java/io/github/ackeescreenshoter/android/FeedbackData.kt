@@ -3,6 +3,7 @@ package io.github.ackeescreenshoter.android
 import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.core.os.ParcelCompat
 import io.github.ackeescreenshoter.android.activity.FeedbackActivity
 
 /**
@@ -15,8 +16,8 @@ internal data class FeedbackData(
 
     @Suppress("UNCHECKED_CAST")
     constructor(parcel: Parcel) : this(
-        parcel.readParcelable(Uri::class.java.classLoader)!!,
-        parcel.readSerializable() as HashMap<String, Any>
+        ParcelCompat.readParcelable(parcel, Uri::class.java.classLoader, Uri::class.java)!!,
+        ParcelCompat.readSerializable(parcel, HashMap::class.java.classLoader, HashMap::class.java) as HashMap<String, Any>
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
