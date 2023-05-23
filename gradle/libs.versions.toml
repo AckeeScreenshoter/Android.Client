@@ -1,0 +1,16 @@
+[versions]
+androidGradlePlugin = "8.0.1"
+dokka = "1.8.10"
+kotlin = "1.8.21"
+ksp = "1.8.21-1.0.11"
+nexus = "0.30.0"
+
+[libraries]
+#accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlin-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+nexus-staging = { id = "io.codearte.nexus-staging", version.ref = "nexus" }
