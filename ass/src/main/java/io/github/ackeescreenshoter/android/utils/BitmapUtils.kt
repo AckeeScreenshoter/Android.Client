@@ -1,4 +1,4 @@
-package io.github.ackeescreenshoter.android
+package io.github.ackeescreenshoter.android.utils
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -15,7 +15,7 @@ import androidx.core.view.drawToBitmap
 import java.io.File
 import java.io.FileOutputStream
 
-fun View.captureView(window: Window, bitmapCallback: (Bitmap) -> Unit) {
+internal fun View.captureView(window: Window, bitmapCallback: (Bitmap) -> Unit) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         // Above Android O, use PixelCopy
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)

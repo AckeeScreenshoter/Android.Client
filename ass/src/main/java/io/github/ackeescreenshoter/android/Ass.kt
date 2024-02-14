@@ -15,6 +15,8 @@ import io.github.ackeescreenshoter.android.activity.EditActivity
 import io.github.ackeescreenshoter.android.activity.FeedbackActivity
 import io.github.ackeescreenshoter.android.api.ApiDescription
 import io.github.ackeescreenshoter.android.utils.appVersionCode
+import io.github.ackeescreenshoter.android.utils.captureView
+import io.github.ackeescreenshoter.android.utils.storeBitmapToCache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

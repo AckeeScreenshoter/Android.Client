@@ -11,7 +11,7 @@ import androidx.core.content.IntentCompat
 import io.github.ackeescreenshoter.android.DrawableView
 import io.github.ackeescreenshoter.android.R
 import io.github.ackeescreenshoter.android.activity.EditActivity.Companion.SCREENSHOT_BITMAP_URI
-import io.github.ackeescreenshoter.android.storeBitmapToCache
+import io.github.ackeescreenshoter.android.utils.storeBitmapToCache
 
 /**
  * Allows the user to draw over bitmap stored at [Uri] provided by intent's [SCREENSHOT_BITMAP_URI]
