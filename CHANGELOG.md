@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [2.0.0] - 2024-02-15
+### Changed
+- ‼️ Important ‼️ make the unintentionally exposed functions and extensions internal
+- Updated all dependencies (both plugins and libraries)
+- Targets API 34
+
 ## [1.2.0] - 2023-05-23
 ### Changed
 - Updated all dependencies (both plugins and libraries)
